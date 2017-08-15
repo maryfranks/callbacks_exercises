@@ -224,7 +224,16 @@ console.log( 'The total number of credit purchases is:', numCreditPurchases );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - This array is allowed to contain duplicate values.
 */
-var uniqueVendors;
+
+function vendors(transaction) {
+  if (transaction['vendor']) {
+    var vendor = transaction['vendor'];
+  };
+  return vendor
+}
+
+var vendorsObjects = transactions.filter(vendors);
+var uniqueVendors = vendorsObjects.map(function(vendorObject) { return vendorObject['vendor']; });
 
 console.log( 'The unique vendors are:', uniqueVendors );
 
@@ -241,7 +250,17 @@ console.log( 'The unique vendors are:', uniqueVendors );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - Make sure that the resulting array *does not* include any duplicates.
 */
-var uniqueCustomers;
+
+function customers(transaction) {
+  if (transaction['customer']) {
+    var customer = transaction['customer'];
+  };
+  return customer
+}
+
+var customersObjects = transactions.filter(customers);
+
+var uniqueCustomers = customersObjects.map(function(customersObjects) { return customersObjects['customer']; });
 
 console.log( 'The unique customers are:', uniqueCustomers );
 
