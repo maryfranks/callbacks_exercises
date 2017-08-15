@@ -129,7 +129,12 @@ console.log( 'The total number of transactions is:', totalTransactions );
   HINT(S):
   - Not all transactions are 'sales'.
 */
-var numSales;
+
+function salesTransactions(transaction) {
+  return (transaction['type'] === 'sale');
+}
+
+var numSales = transactions.filter(salesTransactions).length;
 
 /*
   Hey, welcome to the first question!
