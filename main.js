@@ -226,10 +226,7 @@ console.log( 'The total number of credit purchases is:', numCreditPurchases );
 */
 
 function vendors(transaction) {
-  if (transaction['vendor']) {
-    var vendor = transaction['vendor'];
-  };
-  return vendor
+  return transaction['vendor'];
 }
 
 var vendorsObjects = transactions.filter(vendors);
@@ -252,10 +249,7 @@ console.log( 'The unique vendors are:', uniqueVendors );
 */
 
 function customers(transaction) {
-  if (transaction['customer']) {
-    var customer = transaction['customer'];
-  };
-  return customer
+    return transaction['customer'];
 }
 
 var customersObjects = transactions.filter(customers);
@@ -278,7 +272,22 @@ console.log( 'The unique customers are:', uniqueCustomers );
   - There may be more than 1 'sale' that includes 5 or more items.
   - Individual transactions do not have either `name` or `numItems` properties, we'll have to add them to the output.
 */
-var bigSpenders;
+
+function buysManyItems(transaction) {
+  if (transaction['customer']) {
+    return transaction['items'].length >= 5;
+  };
+}
+
+var spenderObjects = transactions.filter(buysManyItems);
+
+var bigSpenders = spenderObjects.map(function(spender) {
+  // var hash = {};
+  // hash['name'] = spender['customer'];
+  // hash['numItems'] = spender['items'].length;
+  // return hash;
+  return {name: spender['customer'], numItems: spender['items'].length};
+})
 
 console.log( 'The "big spenders" are:', bigSpenders );
 
