@@ -301,7 +301,16 @@ console.log( 'The "big spenders" are:', bigSpenders );
   HINT(S):
   - Transactions don't have 'prices', but their 'items' do!
 */
-var sumSales;
+
+var salesArray = transactions.filter(customers);
+var firstSale = salesArray.shift();
+var salesItems = firstSale['items'].map(function(item) {
+  return item['price'];
+});
+
+var sumSales = salesItems.reduce(function(sum, value) {
+  return sum + value;
+}, 0);
 
 console.log( 'The sum of all sales is:', sumSales );
 
@@ -316,8 +325,18 @@ console.log( 'The sum of all sales is:', sumSales );
   - Your solution to 'QUESTION 08' is a good starting point!
   - Make sure to include 'price' information from *all* purchases.
 */
+function allPurchases(transaction) {
+  return transaction['vendor'];
+}
+var allTheVendors = transactions.filter(allPurchases);
 
-var sumPurchases;
+var sumPurchases = 0;
+
+allTheVendors.forEach(function(vendor) {
+  for (var i = 0; i < vendor.items.length; i++) {
+    sumPurchases +=  vendor.items[i].price;
+  }
+});
 
 console.log( 'The sum of all purhcases is:', sumPurchases );
 
@@ -335,7 +354,13 @@ console.log( 'The sum of all purhcases is:', sumPurchases );
   HINT(S):
   - Unlike 'QUESTION 08' and 'QUESTION 09', here we're interested in both 'sale' and 'purchase' transactions.
 */
-var netProfit;
+var netProfit = 0;
+
+transactions.forEach(function(transaction) {
+  for (var i = 0; i < transaction.items.length; i++) {
+    netProfit += transaction.items[i].price;
+  }
+});
 
 console.log( 'The net profit is:', netProfit );
 
@@ -349,6 +374,7 @@ console.log( 'The net profit is:', netProfit );
   HINTS:
   - The result of this calculation should be a number (not an array, object, or other data type).
 */
+
 var mostItems;
 
 console.log( 'The most items sold in a single transaction is:', mostItems );
